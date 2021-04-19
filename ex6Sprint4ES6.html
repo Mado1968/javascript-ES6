@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    
+
+    <title>Ex6Sprint4</title>
+	
+
+  </head>
+  <body>
+    <h1>-Exercici 6 Sprint4-</h1>
+     
+      <p>Tenim un array de tasques i volem aconseguir un array que contingui únicament els noms de les tasques. 
+        </p>
+
+        <p id="demo"></p>
+       
+
+
+    <script>
+       
+        var tasks =[
+        {
+           'name' : 'Start React web',
+           'duration' : 120
+        },
+        {
+           'name' : 'Work out',
+           'duration' : 60
+        },
+        {
+           'name' : 'Procrastinate on facebook',
+           'duration' : 240
+        }
+        ];
+
+        var result=tasks.map(names);
+
+  function names(name, duration) {
+  let noms = name.name;
+  return noms;
+  } 
+ console.log(result);
+ document.getElementById("demo").innerHTML = "El nou array amb unicament els noms, es <br>" + result ;
+ 
+    </script>
+  </body>
+</html>
