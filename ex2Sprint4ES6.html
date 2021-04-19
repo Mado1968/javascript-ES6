@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+
+    <meta charset="utf-8">
+    <title>ex2Sprint4ES6</title>
+
+</head>
+
+<body>
+
+    <script>
+        var users =
+            [{ firstName: 'Homer', lastName: 'Simpson' },
+            { firstName: 'Marge', lastName: 'Simpson' },
+            { firstName: 'Bart', lastName: 'Simpson' },
+            { firstName: 'Lisa', lastName: 'Simpson' },
+            { firstName: 'Maggie', lastName: 'Simpson' }];
+
+
+        const solucio = users.map(function (user) {
+            return user.firstName;
+
+        });
+        console.log(solucio);
+
+    </script>
+
+</body>
+
+</html>
