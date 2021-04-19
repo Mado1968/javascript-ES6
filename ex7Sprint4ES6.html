@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset='UTF-8'>
+</head>
+<body>
+	<h1>Exercici 7 Sprint4 Nivell II</h1>
+
+	<div id="demo"></div>
+
+   <p> Realitzar un programa en ES6, amb al menys una funció.
+    Aquest programa demana a l'usuari dos nombres de l'1 a l'10 (con promp es suficient). 
+    Un cop introduïts, es mostra per consola la taula de multiplicar del número 1 que va fins al número 2. 
+    </p>
+
+    <button type="button" onclick="multiplica()">Pulsa per veure la taula de multiplicar</button>
+<script>
+
+	var num_user= parseInt(window.prompt( "introdueix un nombre"));
+	var num_multi= parseInt(window.prompt("introdueix el segon nombre"));
+	var i=1;
+	var multi=1;
+
+   function multiplica(){
+
+	for(i=1;i <= num_multi; i++) {
+
+		let operacio= num_user*multi;
+		document.write( num_user +"x"+ multi+ "=" +operacio);
+		document.write("<br>");
+		multi++;
+		
+	}
+    };
+	
+	
+</script>
+</body>
+</html>
