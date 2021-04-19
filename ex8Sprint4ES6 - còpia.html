@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset='UTF-8'>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <script src="validate.js" type="text/javascript"></script>
+</head>
+
+<body>
+  <h1>Exercici 8 Sprint4 Nivell II ES6</h1>
+
+  <div id="demo" style="height: 50px;"></div>
+
+  <p> Modificar l'exercici anterior perquè els números s'introdueixin a
+    través d'un formulari (amb validacions), i que la taula de multiplicar la mostri en una taula HTML
+  </p>
+
+  <div class="container"></div>
+  <h1> Formulari VALIDAT + TAULA DE MULTIPLICAR</h1>
+  <form method="POST" action="" id="Formu" onsubmit="return registerValidate()" name="Formu">
+
+
+    <div class="form-group col-md-6">
+      <label for="inputPassword">introdueix un nombre menor de 10</label>
+      <input type="password" name="inputPassword" class="form-control" id="inputPassword">
+      <div id="text2" class="invalid-feedback"></div>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword2">Vegades que s'ha de multiplicar</label>
+      <input type="password" name="inputPassword2" class="form-control" id="inputPassword2">
+      <div id="text1" class="invalid-feedback"></div>
+    </div>
+
+  </form>
+  </div>
+
+
+  <button type="button" onclick="creaTabla()">Pulsa per veure el resultat </button>
+  <button type="button" onclick="neteja()">Pulsa per netejar valors introduits </button>
+  <!-- <button type="submit" class="btn btn-primary" onclick="testPw()">Registre</button>-->
+
+  <!--<button type="button" onclick="testPw()">Pulsa per veure la taula de multiplicar</button>-->
+
+  <div class="container">
+
+    <div id="tabla"> </div>
+    <!--  <h2>Table</h2>
+        <div class="table-responsive">          
+        <table class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Fi</th>
+              <th>L</th>
+              <th>A</th>
+              <th>Ci</th>
+              <th>Co</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>An</td>
+              <td>Pit</td>
+              <td>35</td>
+              <td>Ne</td>
+              <td>US</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>-->
+  </div>
+  <script>
+
+
+  </script>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+
+</body>
+
+</html>
