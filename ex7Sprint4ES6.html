@@ -2,39 +2,121 @@
 <html lang="es">
 
 <head>
-	<meta charset='UTF-8'>
+    <meta charset='UTF-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taula de Multiplicar amb Tailwind CSS</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'custom-black': '#000000',
+                        'custom-white': '#FFFFFF',
+                        'custom-red': '#FF0000',        // Main Red
+                        'custom-red-dark': '#D00000',   // Darker Red for hovers/accents
+                        'custom-red-light': '#FFEEF0', // Lighter Red for backgrounds (results area)
+                        'custom-error-red': '#B91C1C', // A darker, more saturated red for error messages
+                        'custom-error-bg': '#FEF2F2',  // A very light red for error background
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Fallback fonts */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        /* Custom selection style */
+        ::selection {
+            background-color: #FF0000; /* custom-red */
+            color: #FFFFFF; /* custom-white */
+        }
+    </style>
 </head>
-<body>
-	<h1>Exercici 7 Sprint4 Nivell II</h1>
 
-	<div id="demo"></div>
+<body class="bg-custom-white text-custom-black flex flex-col items-center justify-center min-h-screen p-4">
 
-   <p> Realitzar un programa en ES6, amb al menys una funció.
-    Aquest programa demana a l'usuari dos nombres de l'1 a l'10 (con promp es suficient). 
-    Un cop introduïts, es mostra per consola la taula de multiplicar del número 1 que va fins al número 2. 
-    </p>
+    <div class="w-full max-w-lg mx-auto">
+        <main class="bg-custom-white shadow-xl rounded-lg p-6 md:p-10 border border-custom-red">
+            <header class="mb-6 text-center">
+                <h1 class="text-3xl md:text-4xl font-bold text-custom-red">Taula de Multiplicar ES6</h1>
+            </header>
 
-    <button type="button" onclick="multiplica()">Pulsa per veure la taula de multiplicar</button>
-<script>
+            <section class="mb-6">
+                <p class="text-gray-700 leading-relaxed text-center text-base md:text-lg">
+                    Introdueix dos nombres (de l'1 al 10). Es mostrarà la taula de multiplicar del primer número, fins al límit indicat pel segon.
+                </p>
+            </section>
 
-	var num_user= parseInt(window.prompt( "introdueix un nombre"));
-	var num_multi= parseInt(window.prompt("introdueix el segon nombre"));
-	var i=1;
-	var multi=1;
+            <section class="text-center mb-6">
+                <button type="button" id="calculateButton"
+                    class="bg-custom-red hover:bg-custom-red-dark text-custom-white font-semibold py-2 px-5 rounded-md focus:outline-none focus:ring-2 focus:ring-custom-red focus:ring-opacity-50 transition-colors duration-150 ease-in-out transform hover:scale-105">
+                    Començar
+                </button>
+            </section>
 
-   function multiplica(){
+            <section id="resultsContainer" class="mt-6 p-5 border rounded-md hidden">
+                <h2 id="resultsTitle" class="text-xl md:text-2xl font-semibold mb-3 text-center">Resultat:</h2>
+                <div id="multiplicationTable" class="text-center space-y-1 text-sm md:text-base">
+                    <!-- La taula de multiplicar es mostrarà aquí -->
+                </div>
+            </section>
+        </main>
 
-	for(i=1;i <= num_multi; i++) {
+        <footer class="mt-8 text-center">
+            <p class="text-xs md:text-sm text-gray-500">&copy; 2024 - Refactoritzat amb Tailwind CSS</p>
+        </footer>
+    </div>
 
-		let operacio= num_user*multi;
-		document.write( num_user +"x"+ multi+ "=" +operacio);
-		document.write("<br>");
-		multi++;
-		
-	}
-    };
-	
-	
-</script>
+    <script>
+        document.getElementById('calculateButton').addEventListener('click', function() {
+            const numUserStr = window.prompt("Primer nombre (1-10):");
+            if (numUserStr === null) return;
+
+            const numMultiStr = window.prompt("Segon nombre (límit, 1-10):");
+            if (numMultiStr === null) return;
+
+            const numUser = parseInt(numUserStr);
+            const numMultiLimit = parseInt(numMultiStr);
+
+            const resultsContainer = document.getElementById('resultsContainer');
+            const tableDiv = document.getElementById('multiplicationTable');
+            const resultsTitle = document.getElementById('resultsTitle');
+
+            tableDiv.innerHTML = '';
+            resultsContainer.classList.add('hidden');
+
+            // Reset styles
+            resultsContainer.className = 'mt-6 p-5 border rounded-md hidden'; // Base classes
+            tableDiv.className = 'text-center space-y-1 text-sm md:text-base text-custom-black';
+            resultsTitle.className = 'text-xl md:text-2xl font-semibold mb-3 text-center text-custom-red-dark';
+
+
+            if (isNaN(numUser) || isNaN(numMultiLimit) || numUser < 1 || numUser > 10 || numMultiLimit < 1 || numMultiLimit > 10) {
+                tableDiv.innerHTML = '<p class="font-semibold">Si us plau, introdueix nombres vàlids entre 1 i 10.</p>';
+                resultsContainer.classList.add('border-custom-error-red', 'bg-custom-error-bg');
+                tableDiv.classList.add('text-custom-error-red');
+                resultsTitle.classList.add('text-custom-error-red');
+                resultsContainer.classList.remove('hidden');
+                return;
+            }
+
+            // Apply success styling for results section
+            resultsContainer.classList.add('border-custom-red', 'bg-custom-red-light');
+            resultsTitle.classList.add('text-custom-red-dark'); // Default title color
+            tableDiv.classList.add('text-custom-black'); // Default text color
+
+            let tableContent = '';
+            for (let i = 1; i <= numMultiLimit; i++) {
+                let operacio = numUser * i;
+                tableContent += `<p class="py-0.5">${numUser} &times; ${i} = <span class="font-bold text-custom-red-dark">${operacio}</span></p>`;
+            }
+            tableDiv.innerHTML = tableContent;
+            resultsContainer.classList.remove('hidden');
+        });
+    </script>
 </body>
 </html>
