@@ -19,6 +19,11 @@
                         'custom-red-light': '#FFEEF0', // Lighter Red for backgrounds (results area)
                         'custom-error-red': '#B91C1C', // A darker, more saturated red for error messages
                         'custom-error-bg': '#FEF2F2',  // A very light red for error background
+
+                        // Green success colors
+                        'custom-green': '#10B981',      // Main success green (Emerald 500)
+                        'custom-green-dark': '#047857', // Darker success green (Emerald 700)
+                        'custom-green-light': '#D1FAE5' // Light success green background (Emerald 100)
                     }
                 }
             }
@@ -45,8 +50,8 @@
                 <h1 class="text-3xl md:text-4xl font-bold text-custom-red">Taula de Multiplicar ES6</h1>
             </header>
 
-            <section class="mb-6">
-                <p class="text-gray-700 leading-relaxed text-center text-base md:text-lg">
+            <section class="mb-6" id="descriptionSection">
+                <p id="descriptionParagraph" class="text-gray-700 leading-relaxed text-center text-base md:text-lg">
                     Introdueix dos nombres (de l'1 al 10). Es mostrarà la taula de multiplicar del primer número, fins al límit indicat pel segon.
                 </p>
             </section>
@@ -72,50 +77,73 @@
     </div>
 
     <script>
-        document.getElementById('calculateButton').addEventListener('click', function() {
-            const numUserStr = window.prompt("Primer nombre (1-10):");
-            if (numUserStr === null) return;
+        let isShowingResults = false;
+        const calculateButton = document.getElementById('calculateButton');
+        const resultsContainer = document.getElementById('resultsContainer');
+        const tableDiv = document.getElementById('multiplicationTable');
+        const resultsTitle = document.getElementById('resultsTitle');
+        const descriptionSection = document.getElementById('descriptionSection'); // Get the section itself
 
-            const numMultiStr = window.prompt("Segon nombre (límit, 1-10):");
-            if (numMultiStr === null) return;
+        calculateButton.addEventListener('click', function() {
+            if (isShowingResults) {
+                // "Nou" button was clicked - Reset state
+                tableDiv.innerHTML = '';
+                resultsContainer.classList.add('hidden');
+                descriptionSection.classList.remove('hidden'); // Show description
+                calculateButton.textContent = 'Començar';
 
-            const numUser = parseInt(numUserStr);
-            const numMultiLimit = parseInt(numMultiStr);
+                // Reset result container styles from green/red to default (hidden but ready)
+                resultsContainer.className = 'mt-6 p-5 border rounded-md hidden';
+                resultsTitle.className = 'text-xl md:text-2xl font-semibold mb-3 text-center text-custom-red-dark'; // Default title color
+                tableDiv.className = 'text-center space-y-1 text-sm md:text-base text-custom-black'; // Default text color
 
-            const resultsContainer = document.getElementById('resultsContainer');
-            const tableDiv = document.getElementById('multiplicationTable');
-            const resultsTitle = document.getElementById('resultsTitle');
+                isShowingResults = false;
+            } else {
+                // "Començar" button was clicked - Perform calculation
+                const numUserStr = window.prompt("Primer nombre (1-10):");
+                if (numUserStr === null) return;
 
-            tableDiv.innerHTML = '';
-            resultsContainer.classList.add('hidden');
+                const numMultiStr = window.prompt("Segon nombre (límit, 1-10):");
+                if (numMultiStr === null) return;
 
-            // Reset styles
-            resultsContainer.className = 'mt-6 p-5 border rounded-md hidden'; // Base classes
-            tableDiv.className = 'text-center space-y-1 text-sm md:text-base text-custom-black';
-            resultsTitle.className = 'text-xl md:text-2xl font-semibold mb-3 text-center text-custom-red-dark';
+                const numUser = parseInt(numUserStr);
+                const numMultiLimit = parseInt(numMultiStr);
 
+                // Always reset styles before new calculation attempt
+                resultsContainer.className = 'mt-6 p-5 border rounded-md hidden';
+                tableDiv.className = 'text-center space-y-1 text-sm md:text-base text-custom-black';
+                resultsTitle.className = 'text-xl md:text-2xl font-semibold mb-3 text-center text-custom-red-dark';
+                tableDiv.innerHTML = '';
 
-            if (isNaN(numUser) || isNaN(numMultiLimit) || numUser < 1 || numUser > 10 || numMultiLimit < 1 || numMultiLimit > 10) {
-                tableDiv.innerHTML = '<p class="font-semibold">Si us plau, introdueix nombres vàlids entre 1 i 10.</p>';
-                resultsContainer.classList.add('border-custom-error-red', 'bg-custom-error-bg');
-                tableDiv.classList.add('text-custom-error-red');
-                resultsTitle.classList.add('text-custom-error-red');
+                if (isNaN(numUser) || isNaN(numMultiLimit) || numUser < 1 || numUser > 10 || numMultiLimit < 1 || numMultiLimit > 10) {
+                    tableDiv.innerHTML = '<p class="font-semibold">Si us plau, introdueix nombres vàlids entre 1 i 10.</p>';
+                    resultsContainer.classList.add('border-custom-error-red', 'bg-custom-error-bg');
+                    tableDiv.classList.add('text-custom-error-red');
+                    resultsTitle.classList.add('text-custom-error-red');
+                    resultsContainer.classList.remove('hidden');
+                    descriptionSection.classList.remove('hidden'); // Ensure description is visible on error
+                    calculateButton.textContent = 'Començar'; // Ensure button text is correct
+                    isShowingResults = false; // Not showing results, but an error
+                    return;
+                }
+
+                // Apply success styling (green) for results section
+                resultsContainer.classList.add('border-custom-green-dark', 'bg-custom-green-light');
+                resultsTitle.classList.add('text-custom-green-dark');
+                tableDiv.classList.add('text-custom-black');
+
+                let tableContent = '';
+                for (let i = 1; i <= numMultiLimit; i++) {
+                    let operacio = numUser * i;
+                    tableContent += `<p class="py-0.5">${numUser} &times; ${i} = <span class="font-bold text-custom-green-dark">${operacio}</span></p>`;
+                }
+                tableDiv.innerHTML = tableContent;
+
                 resultsContainer.classList.remove('hidden');
-                return;
+                descriptionSection.classList.add('hidden'); // Hide description
+                calculateButton.textContent = 'Nou';
+                isShowingResults = true;
             }
-
-            // Apply success styling for results section
-            resultsContainer.classList.add('border-custom-red', 'bg-custom-red-light');
-            resultsTitle.classList.add('text-custom-red-dark'); // Default title color
-            tableDiv.classList.add('text-custom-black'); // Default text color
-
-            let tableContent = '';
-            for (let i = 1; i <= numMultiLimit; i++) {
-                let operacio = numUser * i;
-                tableContent += `<p class="py-0.5">${numUser} &times; ${i} = <span class="font-bold text-custom-red-dark">${operacio}</span></p>`;
-            }
-            tableDiv.innerHTML = tableContent;
-            resultsContainer.classList.remove('hidden');
         });
     </script>
 </body>
